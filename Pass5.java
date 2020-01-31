@@ -28,10 +28,16 @@ public class Pass5 extends ControlSystemSS
 
 
 	// The closest teammate from the player
-	public Vec2 closestGuy(Vec2[] teammates){
-		Vec2 closestguy = new Vec2(99999,0);
+	public Vec2 closestTeammate(){
+		long	curr_time = abstract_robot.getTime();
+		Vec2 mypos = abstract_robot.getPosition(curr_time);
 
-		for (int i=0; i< teammates.length; i++){
+		// Vec2 usfromball = abstract_robot.getBall(curr_time);
+		Vec2[] teammates = abstract_robot.getTeammates(curr_time);
+
+		Vec2 closestguy = new Vec2(teammates[0]);
+
+		for (int i=1; i< teammates.length; i++){
 			if (teammates[i].r < closestguy.r)
 				closestguy = teammates[i];
 		}
@@ -47,28 +53,44 @@ public class Pass5 extends ControlSystemSS
 
 		// Vec2 usfromball = abstract_robot.getBall(curr_time);
 		Vec2[] teammates = abstract_robot.getTeammates(curr_time);
+		int mynum = abstract_robot.getPlayerNumber(curr_time);
 
-		System.out.println(" JE SUIS LENGTH");
-		System.out.println(teammates.length);
+		// System.out.println(mynum + " : " + position.r);
 
 
 		for (int i=0; i< teammates.length; i++){
-			Vec2 teammatefromball = new Vec2(mypos);
-
+			Vec2 teammatefromball = new Vec2(teammates[i]);
 
 			// calcul de vecteur du teammates par rapport a la balle
 			teammatefromball.add(position);
-			teammatefromball.add(teammates[i]);
+			teammatefromball.sub(teammates[i]);
 
-			// System.out.println();
-			System.out.println(" JE SUIS RAYON");
-			System.out.println(teammatefromball.r);
-			if (teammatefromball.r < mypos.r){
+			// System.out.println(mynum + " : " + teammatefromball.r + " " + i);
+
+
+			if (teammatefromball.r < position.r){
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+
+	public void passBall(){
+		Vec2 teammate = closestTeammate();
+		shoot(teammate);
+	}
+
+	public void shoot(Vec2 position){
+		long	curr_time = abstract_robot.getTime();
+
+		abstract_robot.setSteerHeading(curr_time, position.t);
+		abstract_robot.setSpeed(curr_time, 0.2);
+
+		if (abstract_robot.canKick(curr_time)){
+			abstract_robot.kick(curr_time);
+		}
 	}
 
 	/**
@@ -87,24 +109,34 @@ public class Pass5 extends ControlSystemSS
 		// get a list of the positions of our teammates
 		Vec2[] teammates = abstract_robot.getTeammates(curr_time);
 
+
+
 		if (teammates.length != 0){
 			Vec2 usfromball = abstract_robot.getBall(curr_time);
 
-			System.out.println(" JE SUIS LENGTH");
-			System.out.println(teammates.length);
+			// System.out.println(" JE SUIS LENGTH");
+			// System.out.println(teammates.length);
 
 			boolean closest = iAmTheclosestGuyTo(ball);
-
-			System.out.println(" SUIS-JE LE PLUS PROCHE ?");
+			// System.out.println(closest);
+			// System.out.println(" SUIS-JE LE PLUS PROCHE ?");
 
 			if (closest){
+				System.out.println("UI");
 				abstract_robot.setSteerHeading(curr_time, ball.t);
-				abstract_robot.setSpeed(curr_time, 0.5);
+				abstract_robot.setSpeed(curr_time, 0.01);
 
+			}else{
+				// abstract_robot.setSpeed(curr_time, 0.0);
 			}
-			System.out.println();
+			// System.out.println("CA PASSE BIEN");
+			// System.out.println();
 
+			if (usfromball.r < 0.2){
+				passBall();
+			}
 		}
+
 
 		// tell the parent we're OK
 		return(CSSTAT_OK);
