@@ -34,18 +34,8 @@ public class RandomMove extends ControlSystemSS
 	*/
 	public int TakeStep()
 		{
-    Random r = new Random();
-    double x = r.nextDouble();
-    double y = r.nextDouble();
-    if (r.nextBoolean()) {
-      x = -x;
-    }
-    if (r.nextBoolean()) {
-      y = -y;
-    }
-    Vec2	vec = new Vec2(x,y);
+    Vec2	vec = new Vec2((new Random().nextDouble()*2)-1,(new Random().nextDouble()*2)-1);
 
-    
 		long	curr_time = abstract_robot.getTime();
 
 		// set heading towards it
