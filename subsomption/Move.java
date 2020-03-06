@@ -1,13 +1,13 @@
+package subsomption;
+
 import java.util.Random;
 import EDU.gatech.cc.is.util.Vec2;
 import EDU.gatech.cc.is.abstractrobot.*;
 
-public class Move implements Activable {
-
-  SocSmall abstract_robot;
+public class Move extends Behaviour implements Activable {
 
   public Move(SocSmall abstract_robot) {
-    this.abstract_robot = abstract_robot;
+    super(abstract_robot);
   }
 
   public boolean isActivated() {

@@ -1,9 +1,7 @@
-/*
- * BasicTeam.java
- */
-
-import	EDU.gatech.cc.is.util.Vec2;
-import	EDU.gatech.cc.is.abstractrobot.*;
+import subsomption.*;
+import swarm.*;
+import EDU.gatech.cc.is.util.Vec2;
+import EDU.gatech.cc.is.abstractrobot.*;
 
 /**
  * Example of a simple strategy for a robot
@@ -16,8 +14,7 @@ import	EDU.gatech.cc.is.abstractrobot.*;
  * @version $Revision: 1.1 $
  */
 
-public class SubsompTeam extends ControlSystemSS
-	{
+public class TeamBeauchampMori extends ControlSystemSS {
 	/**
 	Configure the control system. This method is
 	called once at initialization time. You can use it
@@ -30,19 +27,19 @@ public class SubsompTeam extends ControlSystemSS
 		}
 
   public Activable chooseBehaviour() {
-    Score score = new Score(abstract_robot);
+    Behaviour score = new Score(abstract_robot);
     if (score.isActivated()) {
       return score;
     } else {
-      Pass pass = new Pass(abstract_robot);
+      Behaviour pass = new Pass(abstract_robot);
       if (pass.isActivated()) {
         return pass;
       } else {
-        Tag tag = new Tag(abstract_robot);
+        Behaviour tag = new Tag(abstract_robot);
         if (tag.isActivated()) {
           return tag;
         } else {
-          Defend defend = new Defend(abstract_robot);
+          Behaviour defend = new Defend(abstract_robot);
           if (defend.isActivated()) {
             return defend;
           } else {
@@ -57,12 +54,24 @@ public class SubsompTeam extends ControlSystemSS
 	Called every timestep to allow the control system to
 	run.
 	*/
-	public int TakeStep()
-		{
+	public int TakeStep() {
       Activable behaviour_to_adopt = chooseBehaviour();
       behaviour_to_adopt.action();
 
 		  // tell the parent we're OK
 		  return(CSSTAT_OK);
-		}
 	}
+
+  public Vec2 getKickspot(long timestamp) {
+    Vec2 kickspot = new Vec2(0, 0);
+
+    Vec2 ball = abstract_robot.getBall(timestamp);
+    Vec2 goal = abstract_robot.getOpponentsGoal(timestamp);
+
+    goal.sub(ball);
+    kickspot.sub(goal);
+    kickspot.setr(1);
+    ball.add(kickspot);
+    return ball;
+  }
+}

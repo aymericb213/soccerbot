@@ -1,19 +1,19 @@
+package subsomption;
+
 import	EDU.gatech.cc.is.util.Vec2;
 import	EDU.gatech.cc.is.abstractrobot.*;
 
-public class Pass implements Activable {
-
-  SocSmall abstract_robot;
+public class Pass extends Behaviour implements Activable {
 
   public Pass(SocSmall abstract_robot) {
-    this.abstract_robot = abstract_robot;
+    super(abstract_robot);
   }
 
   public boolean isActivated() {
-    return false;
+    return abstract_robot.canKick();
   };
 
   public void action() {
-
+    abstract_robot.kick();
   };
 }
