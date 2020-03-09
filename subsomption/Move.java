@@ -12,7 +12,7 @@ public class Move extends Behaviour {
 
   public boolean isActivated() {
     return true;
-  };
+  }
 
   public void action() {
     Vec2	vec = new Vec2((new Random().nextDouble()*2)-1,(new Random().nextDouble()*2)-1);
@@ -20,5 +20,11 @@ public class Move extends Behaviour {
 
     abstract_robot.setSteerHeading(curr_time, vec.t);
     abstract_robot.setSpeed(curr_time, 1.0);
-  };
+  }
+
+
+  public String toString() {
+    return "Move";
+  }
+
 }

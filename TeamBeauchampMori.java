@@ -55,11 +55,14 @@ public class TeamBeauchampMori extends ControlSystemSS {
 	run.
 	*/
 	public int TakeStep() {
-      Activable behaviour_to_adopt = chooseBehaviour();
-      behaviour_to_adopt.action();
+    long timestamp = abstract_robot.getTime();
 
-		  // tell the parent we're OK
-		  return(CSSTAT_OK);
+    Activable behaviour_to_adopt = chooseBehaviour();
+    System.out.println("Behaviour of " + abstract_robot.getPlayerNumber(timestamp) + " at " + timestamp + " : " + behaviour_to_adopt);
+    behaviour_to_adopt.action();
+
+		// tell the parent we're OK
+		return(CSSTAT_OK);
 	}
 
 }

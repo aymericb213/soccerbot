@@ -29,4 +29,17 @@ public class Util {
     ball.add(kickspot);
     return ball;
   }
+
+  // The closest teammate from the player
+  public Vec2 closestTeammate() {
+    Vec2[] teammates = abstract_robot.getTeammates(this.timestamp);
+    Vec2 closestguy = new Vec2(teammates[0]);
+
+    for (int i=1; i< teammates.length; i++){
+      if (teammates[i].r < closestguy.r)
+        closestguy = teammates[i];
+    }
+
+    return closestguy;
+  }
 }

@@ -10,10 +10,15 @@ public class Defend extends Behaviour {
   }
 
   public boolean isActivated() {
-    return abstract_robot.getOpponentsGoal(this.timestamp).r < 0.2;
-  };
+    return abstract_robot.getPlayerNumber(this.timestamp) == 0;
+  }
 
   public void action() {
+    abstract_robot.setSteerHeading(this.timestamp, abstract_robot.getOurGoal(this.timestamp).t);
+    abstract_robot.setSpeed(this.timestamp, 1.0);
+  }
 
-  };
+  public String toString() {
+    return "Defend";
+  }
 }

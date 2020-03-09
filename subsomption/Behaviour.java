@@ -17,4 +17,6 @@ public abstract class Behaviour implements Activable {
     this.abstract_robot = abstract_robot;
     this.timestamp = this.abstract_robot.getTime();
   }
+
+  public abstract String toString();
 }

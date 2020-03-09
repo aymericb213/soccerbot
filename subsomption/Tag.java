@@ -11,9 +11,14 @@ public class Tag extends Behaviour {
 
   public boolean isActivated() {
     return abstract_robot.getOpponentsGoal(this.timestamp).r < 0.2;
-  };
+  }
 
   public void action() {
+    System.out.println("Behaviour " + abstract_robot.getPlayerNumber(this.timestamp) + "at " + this.timestamp + " : Tag");
+  }
 
-  };
+  public String toString() {
+    return "Tag";
+  }
+
 }

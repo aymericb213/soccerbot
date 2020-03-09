@@ -10,10 +10,18 @@ public class Score extends Behaviour {
   }
 
   public boolean isActivated() {
-    return abstract_robot.getBall(this.timestamp).octant() == 3 && abstract_robot.canKick(this.timestamp);
-  };
+    return (abstract_robot.getBall(this.timestamp).octant() == 3 || abstract_robot.getBall(this.timestamp).octant() == 4);
+  }
 
   public void action() {
+    abstract_robot.setSteerHeading(this.timestamp, abstract_robot.getBall(this.timestamp).t);
+    abstract_robot.setSpeed(this.timestamp, 1.0);
+    if (abstract_robot.canKick(this.timestamp)) {
       abstract_robot.kick(this.timestamp);
-  };
+    }
+  }
+
+  public String toString() {
+    return "Score";
+  }
 }
