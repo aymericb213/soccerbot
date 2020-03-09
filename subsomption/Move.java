@@ -4,7 +4,7 @@ import java.util.Random;
 import EDU.gatech.cc.is.util.Vec2;
 import EDU.gatech.cc.is.abstractrobot.*;
 
-public class Move extends Behaviour implements Activable {
+public class Move extends Behaviour {
 
   public Move(SocSmall abstract_robot) {
     super(abstract_robot);

@@ -4,7 +4,7 @@ import	EDU.gatech.cc.is.abstractrobot.*;
 /**
 	* Classe abstraite représentant .
 */
-public abstract class Behaviour {
+public abstract class Behaviour implements Activable {
 
   protected SocSmall abstract_robot;
   protected long timestamp;
