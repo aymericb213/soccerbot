@@ -1,6 +1,6 @@
 package subsomption;
 
-import java.util.Random;
+import swarm.*;
 import EDU.gatech.cc.is.util.Vec2;
 import EDU.gatech.cc.is.abstractrobot.*;
 
@@ -15,11 +15,11 @@ public class Move extends Behaviour {
   }
 
   public void action() {
-    Vec2	vec = new Vec2((new Random().nextDouble()*2)-1,(new Random().nextDouble()*2)-1);
-    long	curr_time = abstract_robot.getTime();
+    Swarm swarm = new Swarm(abstract_robot);
+    Vec2 direction = swarm.swarmDirection();
+    abstract_robot.setSteerHeading(this.timestamp, direction.t);
+    abstract_robot.setSpeed(this.timestamp, 1.0);
 
-    abstract_robot.setSteerHeading(curr_time, vec.t);
-    abstract_robot.setSpeed(curr_time, 1.0);
   }
 
 

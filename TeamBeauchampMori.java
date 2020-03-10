@@ -23,7 +23,6 @@ public class TeamBeauchampMori extends ControlSystemSS {
 	*/
 
 	public void Configure() {
-		Util utils = new Util(abstract_robot);
 	}
 
   public Activable chooseBehaviour() {

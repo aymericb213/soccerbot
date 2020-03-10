@@ -1,6 +1,5 @@
 package subsomption;
 
-import utils.*;
 import	EDU.gatech.cc.is.util.Vec2;
 import	EDU.gatech.cc.is.abstractrobot.*;
 
@@ -16,8 +15,7 @@ public class Score extends Behaviour {
   }
 
   public void action() {
-    Util utils = new Util(abstract_robot);
-    Vec2 kickspot = utils.getKickspot(this.timestamp);
+    Vec2 kickspot = utils.getKickspot(this.abstract_robot.getOpponentsGoal(this.timestamp));
 
     abstract_robot.setSteerHeading(this.timestamp, kickspot.t);
     abstract_robot.setSpeed(this.timestamp, 1.0);

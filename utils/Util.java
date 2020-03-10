@@ -17,11 +17,9 @@ public class Util {
     this.timestamp = this.abstract_robot.getTime();
   }
 
-  public Vec2 getKickspot(long timestamp) {
+  public Vec2 getKickspot(Vec2 goal) {
     Vec2 kickspot = new Vec2(0, 0);
-
-    Vec2 ball = abstract_robot.getBall(timestamp);
-    Vec2 goal = abstract_robot.getOpponentsGoal(timestamp);
+    Vec2 ball = abstract_robot.getBall(this.timestamp);
 
     goal.sub(ball);
     kickspot.sub(goal);
@@ -42,4 +40,5 @@ public class Util {
 
     return closestguy;
   }
+
 }
