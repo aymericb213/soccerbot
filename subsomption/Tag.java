@@ -10,10 +10,21 @@ public class Tag extends Behaviour {
   }
 
   public boolean isActivated() {
-    return abstract_robot.getOpponentsGoal(this.timestamp).r < 0.2;
+    for (Vec2 opp : abstract_robot.getOpponents(this.timestamp)) {
+      if (utils.readyToTag(opp)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public void action() {
+    for (Vec2 opp : abstract_robot.getOpponents(this.timestamp)) {
+      if (utils.readyToTag(opp)) {
+        abstract_robot.setSteerHeading(this.timestamp, opp.t);
+        abstract_robot.setSpeed(this.timestamp, 1.0);
+      }
+    }
     System.out.println("Behaviour " + abstract_robot.getPlayerNumber(this.timestamp) + "at " + this.timestamp + " : Tag");
   }
 

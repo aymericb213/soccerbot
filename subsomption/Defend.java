@@ -10,11 +10,12 @@ public class Defend extends Behaviour {
   }
 
   public boolean isActivated() {
-    return abstract_robot.getPlayerNumber(this.timestamp) == 0 || abstract_robot.getOurGoal(this.timestamp).r < 0.2;
+    Vec2 ball = abstract_robot.getBall(this.timestamp);
+    return abstract_robot.getPlayerNumber(this.timestamp) == 0 || utils.opponentHasBall();
   }
 
   public void action() {
-    abstract_robot.setSteerHeading(this.timestamp, abstract_robot.getOurGoal(this.timestamp).t);
+    abstract_robot.setSteerHeading(this.timestamp, utils.interceptBall().t);
     abstract_robot.setSpeed(this.timestamp, 1.0);
     if (abstract_robot.canKick(this.timestamp)) {
       abstract_robot.setSteerHeading(this.timestamp, abstract_robot.getOpponentsGoal(this.timestamp).t);

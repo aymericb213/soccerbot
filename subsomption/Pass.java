@@ -10,15 +10,15 @@ public class Pass extends Behaviour {
   }
 
   public boolean isActivated() {
-    return abstract_robot.canKick(this.timestamp);
+    return utils.closestTeammate().x < abstract_robot.getPosition(this.timestamp).x;
   }
 
   public void action() {
     if (abstract_robot.canKick(this.timestamp)) {
-      Vec2 kickspot = utils.getKickspot(utils.closestTeammate());
+      Vec2 kickspot = utils.getKickspot(utils.closestTeammate());//passe au plus proche
       abstract_robot.kick(this.timestamp);
     } else {
-      Vec2 ball = abstract_robot.getBall(this.timestamp);
+      Vec2 ball = abstract_robot.getBall(this.timestamp);//aller chercher la balle
       abstract_robot.setSteerHeading(this.timestamp, ball.t);
       abstract_robot.setSpeed(this.timestamp, 1.0);
     }

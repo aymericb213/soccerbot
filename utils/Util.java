@@ -41,4 +41,38 @@ public class Util {
     return closestguy;
   }
 
+  public boolean opponentHasBall() {
+    for (Vec2 opp : abstract_robot.getOpponents(this.timestamp)) {
+      Vec2 vec = new Vec2(0,0);
+      vec.sub(opp);
+      vec.add(abstract_robot.getBall(this.timestamp));
+      if (vec.r < abstract_robot.RADIUS*2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Vec2 interceptBall() {
+    Vec2 vec = new Vec2(0,0);
+    vec.sub(abstract_robot.getOurGoal(this.timestamp));
+    vec.add(abstract_robot.getBall(this.timestamp));
+    vec.setr(vec.r/2);
+    return vec;
+  }
+
+  public boolean readyToTag(Vec2 opponent) {
+    if (opponent.r > abstract_robot.RADIUS*3) {
+      return false;
+    }
+    for (Vec2 ally : abstract_robot.getTeammates(this.timestamp)) {
+      Vec2 vec = new Vec2(0,0);
+      vec.sub(opponent);
+      vec.add(ally);
+      if (vec.r < opponent.r) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

@@ -57,9 +57,9 @@ public class Swarm {
 
   public Vec2 swarmDirection() {
     Vec2 base_vec = abstract_robot.getPosition(this.timestamp);
-    base_vec.add(cohesion(0.5));
-    base_vec.add(separation(0.5));
-    base_vec.add(alignment(0.5));
+    base_vec.add(cohesion(1));
+    base_vec.add(separation(0.2));
+    base_vec.add(alignment(1));
     return base_vec;
   }
 

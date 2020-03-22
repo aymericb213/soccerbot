@@ -50,8 +50,7 @@ public class TeamBeauchampMori extends ControlSystemSS {
   }
 
 	/**
-	Called every timestep to allow the control system to
-	run.
+	Called every timestep to allow the control system to run.
 	*/
 	public int TakeStep() {
     long timestamp = abstract_robot.getTime();

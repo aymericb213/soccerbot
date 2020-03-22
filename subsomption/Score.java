@@ -11,7 +11,7 @@ public class Score extends Behaviour {
 
   public boolean isActivated() {
     Vec2 ball = abstract_robot.getBall(this.timestamp);
-    return (ball.octant() == 3 || ball.octant() == 4) && ball.r < abstract_robot.RADIUS*4;
+    return (ball.octant() == 3 || ball.octant() == 4) && (ball.r < abstract_robot.RADIUS*4 || abstract_robot.canKick(this.timestamp));
   }
 
   public void action() {
